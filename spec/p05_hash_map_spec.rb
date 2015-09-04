@@ -83,16 +83,19 @@ describe HashMap do
   end
 
   describe "#resize!" do
+    before do
+      allow(hash).to receive(:resize!).and_call_original
+    end
+
     it "should call #resize! when enough items are inserted" do
       expect(hash).to receive(:resize!).exactly(1).times
       7.times { |i| hash[i] = i + 1 }
     end
 
     it "should re-hash items into its new store when resizing" do
-      6.times { |i| hash[i] = i + 1 }
       old_store = hash.instance_variable_get(:@store)
 
-      2.times { |i| hash[i + 6] = i + 7 }
+      8.times { |i| hash[i] = i + 1 }
       new_store = hash.instance_variable_get(:@store)
 
       expect(new_store).not_to eq(old_store)

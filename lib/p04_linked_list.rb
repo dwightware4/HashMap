@@ -1,8 +1,10 @@
-class Link
-  attr_accessor :key, :val, :nxt
+require 'byebug'
 
-  def initialize(key = nil, val = nil, nxt = nil)
-    @key, @val, @nxt = key, val, nxt
+class Link
+  attr_accessor :key, :val, :nxt, :prev
+
+  def initialize(key = nil, val = nil, nxt = nil, prev = nil)
+    @key, @val, @nxt, @prev = key, val, nxt, prev
   end
 
   def to_s
@@ -50,14 +52,14 @@ class LinkedList
   end
 
   def insert(key, val)
-    last.nxt = Link.new(key, val)
+    last.nxt = Link.new(key, val, nil, last)
   end
 
   def remove(key)
-    prev_link = @head
     each do |link|
       if link.key == key
-        prev_link.nxt = link.nxt
+        #link.nxt.prev = link.prev unless link == last (uneeded for LRU)
+        link.prev.nxt = link.nxt
       end
     end
   end
@@ -73,7 +75,6 @@ class LinkedList
     self
   end
 
-  # uncomment when you have `each` working and `Enumerable` included
   def to_s
     inject([]) { |acc, link| acc << "[#{link.key}, #{link.val}]" }.join(", ")
   end

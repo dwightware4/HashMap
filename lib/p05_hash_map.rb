@@ -6,8 +6,7 @@ class HashMap
   attr_reader :count
 
   def initialize(num_buckets = 8)
-    @store = Array.new(num_buckets) { LinkedList.new }
-    @count = 0
+    @store, @count = Array.new(num_buckets) { LinkedList.new }, 0
   end
 
   def include?(key)
@@ -33,12 +32,10 @@ class HashMap
 
   def each(&blk)
     @store.each do |bucket|
-    #  bucket.each { |link| yield(link.key, link.val) }
       bucket.each {blk}
     end
   end
 
-  # uncomment when you have Enumerable included
   def to_s
     pairs = inject([]) do |strs, (k, v)|
       strs << "#{k.to_s} => #{v.to_s}"
@@ -69,9 +66,7 @@ class HashMap
     @store = new_store
   end
 
-
   def bucket(key)
     key.hash % num_buckets
-    # optional but useful; return the bucket corresponding to `key`
   end
 end

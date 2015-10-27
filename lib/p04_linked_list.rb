@@ -31,9 +31,11 @@ class LinkedList
 
   def last
     current_link = @head
+
     until current_link.nxt == nil
       current_link = current_link.nxt
     end
+
     current_link
   end
 
@@ -58,7 +60,6 @@ class LinkedList
   def remove(key)
     each do |link|
       if link.key == key
-        #link.nxt.prev = link.prev unless link == last (uneeded for LRU)
         link.prev.nxt = link.nxt
       end
     end
@@ -67,10 +68,12 @@ class LinkedList
   def each(&block)
     return self if @head.nxt == nil
     current_link = @head.nxt
+
     until current_link.nxt.nil?
       block.call(current_link)
       current_link = current_link.nxt
     end
+    
     block.call(current_link)
     self
   end

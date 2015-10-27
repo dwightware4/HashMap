@@ -1,7 +1,6 @@
 class MaxIntSet
   def initialize(max)
-    @max = max
-    @store = Array.new(max, false)
+    @max, @store = max, Array.new(max, false)
   end
 
   def insert(num)
@@ -30,10 +29,9 @@ class MaxIntSet
   end
 end
 
-
 class IntSet
+
   def initialize(num_buckets = 20)
-    #@num_buckets = num_buckets
     @store = Array.new(num_buckets) { Array.new }
   end
 
@@ -53,10 +51,6 @@ class IntSet
 
   private
 
-  def [](num)
-    # optional but useful; return the bucket corresponding to `num`
-  end
-
   def num_buckets
     @store.length
   end
@@ -66,8 +60,7 @@ class ResizingIntSet
   attr_reader :count
 
   def initialize(num_buckets = 20)
-    @store = Array.new(num_buckets) { Array.new }
-    @count = 0
+    @store, @count = Array.new(num_buckets) { Array.new }, 0
   end
 
   def insert(num)
@@ -92,10 +85,6 @@ class ResizingIntSet
 
   private
 
-  def [](num)
-    # optional but useful; return the bucket corresponding to `num`
-  end
-
   def num_buckets
     @store.length
   end
@@ -112,6 +101,5 @@ class ResizingIntSet
     end
 
     @store = new_store
-
   end
 end

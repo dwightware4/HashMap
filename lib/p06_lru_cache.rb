@@ -3,11 +3,9 @@ require_relative 'p04_linked_list'
 
 class LRUCache
   attr_reader :count
+  
   def initialize(max, prc)
-    @map = HashMap.new
-    @store = LinkedList.new
-    @max = max
-    @prc = prc
+    @map, @store, @max, @prc = HashMap.new, LinkedList.new, max, prc
   end
 
   def count
